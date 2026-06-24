@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lavly – Perehdytysopas</title>
+  <style>
+    :root {
+      --pink: #f4a7b9;
+      --pink-light: #fde8ef;
+      --pink-dark: #d6789a;
+      --pink-deep: #b5536e;
+      --cream: #fff9fb;
+      --text: #3a2230;
+      --text-soft: #6b4459;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(180, 80, 120, 0.10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--pink-light);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(180,80,120,0.08);
+    }
+
+    nav .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--pink-deep);
+      letter-spacing: -0.5px;
+      padding: 1rem 0;
+      flex-shrink: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+
+    nav a:hover {
+      background: var(--pink-light);
+      color: var(--pink-deep);
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--pink-deep) 0%, var(--pink) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+    }
+
+    .hero .paw { font-size: 3rem; margin-bottom: 1rem; }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* SECTION */
+    section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 2.2rem;
+      margin-bottom: 1.8rem;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--pink-light);
+    }
+
+    section h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--pink-deep);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--pink-dark);
+      margin: 1.3rem 0 0.5rem;
+    }
+
+    p { margin-bottom: 0.8rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      padding-left: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    li { margin-bottom: 0.4rem; }
+
+    /* VALUE CARDS */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .value-card {
+      background: var(--pink-light);
+      border-radius: 12px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+      font-weight: 600;
+      color: var(--pink-deep);
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    .value-card .icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+
+    /* CHECKLIST */
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--pink-light);
+      font-size: 0.95rem;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .checklist li::before {
+      content: '✓';
+      background: var(--pink);
+      color: var(--white);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+      margin-top: 2px;
+    }
+
+    /* INFO BOX */
+    .info-box {
+      background: var(--pink-light);
+      border-left: 4px solid var(--pink-dark);
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      font-size: 0.93rem;
+    }
+
+    .info-box strong { color: var(--pink-deep); }
+
+    /* WARN BOX */
+    .warn-box {
+      background: #fff3e0;
+      border-left: 4px solid #f4a030;
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      font-size: 0.93rem;
+    }
+
+    /* SPEECH BOX */
+    .speech-box {
+      background: var(--pink-light);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      margin: 0.8rem 0;
+      font-style: italic;
+      color: var(--text-soft);
+      font-size: 0.93rem;
+      position: relative;
+    }
+
+    .speech-box .speaker-tag {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--pink-deep);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    /* TWO COL */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    .col-box {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      border: 1.5px solid var(--pink-light);
+    }
+
+    .col-box h4 {
+      font-weight: 700;
+      color: var(--pink-deep);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .col-box ul { font-size: 0.9rem; }
+
+    /* SALARY TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.93rem;
+    }
+
+    th {
+      background: var(--pink-deep);
+      color: var(--white);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    th:first-child { border-radius: 10px 0 0 0; }
+    th:last-child { border-radius: 0 10px 0 0; }
+
+    td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--pink-light);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--pink-light); }
+
+    /* STORE TABLE */
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    .store-card {
+      background: var(--cream);
+      border: 1.5px solid var(--pink-light);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .store-card h4 {
+      font-weight: 800;
+      color: var(--pink-deep);
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .store-card p {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin: 0;
+    }
+
+    /* BILLING INFO */
+    .billing-box {
+      background: var(--pink-light);
+      border-radius: 14px;
+      padding: 1.3rem 1.5rem;
+      margin: 0.8rem 0;
+    }
+
+    .billing-box .row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.3rem 0;
+      font-size: 0.92rem;
+      border-bottom: 1px solid rgba(180,80,120,0.15);
+    }
+
+    .billing-box .row:last-child { border-bottom: none; }
+    .billing-box .label { font-weight: 700; color: var(--pink-deep); min-width: 190px; }
+
+    /* RECEIPT CODES */
+    .receipt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.8rem;
+    }
+
+    .receipt-item {
+      background: var(--cream);
+      border: 1.5px solid var(--pink-light);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-size: 0.88rem;
+    }
+
+    .receipt-item .city { font-weight: 700; color: var(--pink-deep); }
+    .receipt-item .code { color: var(--text-soft); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      border-top: 2px solid var(--pink-light);
+    }
+
+    /* TIMELINE */
+    .timeline {
+      border-left: 3px solid var(--pink);
+      padding-left: 1.4rem;
+      margin: 0.5rem 0;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.8rem;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--pink-dark);
+    }
+
+    .timeline-item .time {
+      font-weight: 700;
+      color: var(--pink-deep);
+      font-size: 0.85rem;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-block;
+      background: var(--pink-deep);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">🐾 Lavly</span>
+  <a href="#tervetuloa">Tervetuloa</a>
+  <a href="#arvot">Arvot</a>
+  <a href="#brandi">Brändi</a>
+  <a href="#valmistelu">Valmistelu</a>
+  <a href="#smoothiet">Smoothiet</a>
+  <a href="#asiakkaat">Asiakkaat</a>
+  <a href="#tunti">Tunnin kulku</a>
+  <a href="#lopuksi">Lopuksi</a>
+  <a href="#pennut">Pennut</a>
+  <a href="#ukk">UKK</a>
+  <a href="#laskutus">Laskutus</a>
+</nav>
+
+<div class="hero">
+  <div class="paw">🐶</div>
+  <h1>Tervetuloa Lavlyn tiimiin!</h1>
+  <p>Tämä opas auttaa sinut alkuun. Lue rauhassa — kaikkea ei tarvitse osata heti ulkoa!</p>
+</div>
+
+<main>
+
+  <!-- TERVETULOA -->
+  <section id="tervetuloa">
+    <h2>💌 Tervetuloa</h2>
+    <p>Lavlyn pentujooga sai alkunsa kolmen kaveruksen intohimoprojektista. Haluttiin yhdistää lempeä liikunta, lämmin ja iloinen fiilis sekä tietenkin ihanat koirat. Tavoitteena on luoda asiakkaille hetki, joka rentouttaa ja nostaa mielialaa arjen kiireen keskellä.</p>
+    <p>Kaikki lähti pienestä ideasta, ja nyt olemme kasvaneet niin paljon, että päästiin etsimään uusia huipputyyppejä mukaan! Toiminta alkoi syksyllä 2024 Tampereella ja meillä on nyt vakiintuneet toimipisteet <strong>Tampereella, Jyväskylässä, Oulussa, Seinäjoella ja Lahdessa</strong>.</p>
+    <div class="info-box">
+      <strong>Muista:</strong> Tähän oppaaseen on koottu käytännön ohjeet. Jos mikä tahansa mietityttää — <strong>kysy rohkeasti!</strong> Me tehdään tätä yhdessä ja apua löytyy aina 💕
+    </div>
+  </section>
+
+  <!-- ARVOT -->
+  <section id="arvot">
+    <h2>💖 Lavlyn arvot</h2>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="icon">🤝</div>
+        Kohtele asiakasta kuin ystävää
+      </div>
+      <div class="value-card">
+        <div class="icon">⭐</div>
+        Priorisoidaan kokemus — raha otetaan vasta kun kokemus on priima
+      </div>
+      <div class="value-card">
+        <div class="icon">🐾</div>
+        Pentujen hyvinvointi kaiken muun edelle
+      </div>
+      <div class="value-card">
+        <div class="icon">💬</div>
+        Tiimissä uskaltaa kysyä, soittaa, kertoa ja ehdottaa
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:1.2rem;">
+      Vaikeissa tai uusissa tilanteissa muista nämä arvot ja tee valinnat niiden pohjalta.
+    </div>
+  </section>
+
+  <!-- BRÄNDI -->
+  <section id="brandi">
+    <h2>✨ Brändin edustaminen</h2>
+    <ul class="checklist">
+      <li>Omalla olemuksella ja ulkoilmeellä pyritään olemaan yhdenmukaisia brändin kanssa</li>
+      <li>Sosiaalinen ja positiivinen energia välittyy sinusta omana itsenäsi</li>
+      <li>Pentujen hyvinvointi on aina ensisijaista — se tulisi näkyä myös tunnilla</li>
+      <li>Asiakkaiden kanssa keskustellaan kuin ystävälle</li>
+      <li>Lavly tarjoaa osan työvaatteista</li>
+      <li>Pukeudutaan tunnille kuin joogatunnille — pyritään pinkki tai brändin sävyt, musta alaosa on hyvä</li>
+      <li>Työvaatteet ovat ehjiä ja siistejä</li>
+      <li>Joogamatot siisteinä — ohjaajien tehtävä huolehtia uusista matoista (Rusta). Kuitista kuva 💕 ja maksetaan heti takaisin!</li>
+    </ul>
+  </section>
+
+  <!-- VALMISTELU -->
+  <section id="valmistelu">
+    <h2>🏠 Ennen tuntia — tilan valmistelu</h2>
+
+    <div class="info-box">
+      <strong>Saapuminen:</strong> Tilalle noin <strong>60 min ennen tunnin alkua</strong> — valmisteluun on hyvä varata riittävästi aikaa.
+    </div>
+
+    <ul class="checklist">
+      <li>Tee smoothiet (ohje alempana)</li>
+      <li>Tarkista lattia: jos pölyinen tai likainen → imuroi ja/tai moppaa</li>
+      <li>Tee pennuille rajattu alue ja teippaa aidat paikoilleen (kaksi teippipalaa per aita — pysyy hyvin!)</li>
+      <li>Aseta joogamatot valmiiksi</li>
+      <li>Siirrä kaikki ylimääräinen pentujen alueelta pois (esim. ylimääräiset johdot)</li>
+      <li>Teippaa lattian rajassa olevat pistorasiat</li>
+      <li>Laita siivoustarvikkeet lähettyville: pesuaineet, paperit, pissa-alustat, roskis</li>
+      <li>Täytä pennuille vesikuppi valmiiksi</li>
+      <li>Siisti tila ylimääräisistä tavaroista ennen asiakkaiden saapumista</li>
+      <li>Yhdistä kaiutin valmiiksi musiikkia varten</li>
+    </ul>
+  </section>
+
+  <!-- SMOOTHIET -->
+  <section id="smoothiet">
+    <h2>🥤 Smoothiet</h2>
+
+    <div class="two-col">
+      <div class="col-box">
+        <h4>Ostoslista (30 asiakasta)</h4>
+        <ul>
+          <li>Pirkka banaani — 8 kpl</li>
+          <li>K-menu mansikka pussi — 8 kpl</li>
+          <li>K-menu appelsiinimehu — 3 kpl</li>
+          <li>Juissi mustikka-vadelma — 4 kpl</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <h4>Ohje</h4>
+        <p style="font-size:0.9rem;">Lisää blenderiin <strong>1,5 banaania</strong>, <strong>1,5 pussia mansikkaa</strong>, <strong>appelsiinimehua ⅓</strong> kannusta ja <strong>juissia ⅔</strong> kannusta.</p>
+        <p style="font-size:0.9rem;">Yhdestä kannusta tulee n. 6–7 annosta → tee noin <strong>5 kannullista</strong>. Tee muutama ylimääräinen! Tarjoa myös kasvattajalle.</p>
+        <p style="font-size:0.9rem;">Kaada valmiiksi kuppeihin ja laita jääkaappiin tuntien ajaksi.</p>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <strong>⚠️ Huom! K-menu mansikat loppu?</strong> Muut mansikat ovat liian kalliita. Toimi näin:
+      <ol style="margin-top:0.5rem; padding-left:1.3rem; font-size:0.92rem;">
+        <li>Kysy myyjältä löytyykö lisää (jos on aikaa)</li>
+        <li>Käy toisessa kaupassa</li>
+        <li>Mieti yhtä halpaa korvaavaa ainesta</li>
+        <li>Jos ei löydy mitään järkevää, mieti mitä muuta voi tarjota samassa hintaluokassa</li>
+        <li>Viimeisenä vaihtoehtona: jätetään tarjoilu tekemättä</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ASIAKKAAT -->
+  <section id="asiakkaat">
+    <h2>👋 Kun asiakkaat ja pennut saapuvat</h2>
+
+    <div class="two-col">
+      <div class="col-box">
+        <h4>Asiakkaiden vastaanotto</h4>
+        <ul style="font-size:0.9rem;">
+          <li>Otetaan asiakkaat vastaan ja toivotetaan tervetulleeksi</li>
+          <li>Ohjataan odottamaan — pennut tutustuvat ensin tilaan rauhassa</li>
+          <li>Pyydetään ottamaan pienet irtoavat korut pois ja pesemään kädet</li>
+          <li>Päästetään asiakkaat sisään viimeistään <strong>5 min ennen tunnin alkua</strong></li>
+          <li>Laita musiikki päälle kun asiakkaat tulevat</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <h4>Kasvattajan vastaanotto</h4>
+        <ul style="font-size:0.9rem;">
+          <li>Sovittuna aikana mene ulos autolle asti ja auta kantamaan pennut</li>
+          <li>Kysy haluaako kasvattaja osallistua joogaan vai katsella — laita paikka valmiiksi</li>
+          <li>Varmista kasvattajalta, sopiiko ottaa asiakkaat sisään kun pennut ovat tutustuneet tilaan</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>🎵 Musiikki</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">Ennen joogaa</div>
+        Spotify: <strong>Lavlyn "hyvän fiiliksen" -lista</strong>
+      </div>
+      <div class="timeline-item">
+        <div class="time">Joogan alkaessa</div>
+        Vaihda: <strong>yoga &amp; meditation -lista</strong>
+      </div>
+      <div class="timeline-item">
+        <div class="time">Vapaa hengailu</div>
+        Takaisin: <strong>Lavlyn hyvän fiiliksen -lista</strong>
+      </div>
+    </div>
+    <div class="info-box">
+      <strong>Tampereen tila:</strong> Musiikki voidaan soittaa tilalla olevasta kännykästä. Pääsykoodi: <strong>360300</strong>
+    </div>
+  </section>
+
+  <!-- TUNTI -->
+  <section id="tunti">
+    <h2>🧘 Tunnin kulku</h2>
+
+    <h3>Alku spiikki — siistijä</h3>
+    <div class="speech-box">
+      <span class="speaker-tag">Siistijä</span>
+      "Tervetuloa Lavlyn pentujoogatunnille, mun nimi on ______ ja mä oon ______. Meidän lisäksi mukana tunnilla ovat nämä ihanat [rotu] pennut. Pennut tulevat kennelistä [kennel] ja heidän kasvattaja [nimi] on myös paikalla. Pennut ovat [x] viikon ikäisiä ja pentueessa on [x] pentua."
+      <br><br>
+      "Pissa- ja kakaVahinkoja saattaa tulla tunnin aikana ja minä siivoilen niitä. Jos en sattuisi huomaamaan, vilkutelkaa niin tulen siivoamaan."
+      <br><br>
+      "Pennuilla on jo teräviä hampaita — otetaan pienet irtoavat korut pois. Pentuja saa työntää sivuun ja minä voin tulla auttamaan. Turvallisuussyistä ei pussailla pentuja ja nostetaan ne syliin vain istuen."
+      <br><br>
+      "Tunnilla kuvaaminen on sallittua! Hienoa, sitten voidaankin siirtyä joogaamaan!"
+    </div>
+
+    <h3>Alku spiikki — jooga-ohjaaja</h3>
+    <div class="speech-box">
+      <span class="speaker-tag">Jooga-ohjaaja</span>
+      "Minunkin puolesta tervetuloa kaikille! Meillä on tiedossa tänään lempeää joogaa — herätellään ja lämmitellään aluksi kehoa ja syvävenytellään. Pennut varmasti vaikeuttavat keskittymiskykyä, mutta ymmärrän, että jooga saattaakin olla sivutuote 😄"
+      <br><br>
+      "Pennut pyörivät ympärillä, ollaan varovaisia etenkin kun vaihdetaan asentoa. Minä ohjeistan joogaa koko ajan, mutta saatte huomioida pentuja ja mennä oman fiiliksen mukaan. Sitten voidaankin aloittaa!"
+    </div>
+
+    <h3>Tunnin aikana</h3>
+    <ul class="checklist">
+      <li>Toinen ohjaa joogaa, toinen seuraa pentuja ja siivoaa jälkiä</li>
+      <li>Jooga kestää noin <strong>45 min</strong> + 15 min vapaa hengailu</li>
+      <li>Siivotaan pentujen jätökset nopeasti ja huolellisesti</li>
+      <li>Jos pennut hakeutuu vain tietylle alueelle, houkuttele niitä liikkumaan ympäri salia</li>
+      <li>Kun jooga-osuus loppuu, jaa smoothiet kaikille omille paikoille</li>
+      <li>Istu asiakkaiden tasolle matolle ja jutustele — etenkin jos joku on yksin</li>
+      <li>Voit pyytää kasvattajaa kertomaan rodusta lisää yhteisesti</li>
+    </ul>
+
+    <h3>Loppu spiikki</h3>
+    <div class="speech-box">
+      <span class="speaker-tag">Jooga-ohjaaja</span>
+      "Kiitos kaikille joogasta! Toivottavasti kehonne ja mieli pääsi rentoutumaan. Meillä on hyvin aikaa hengailla vielä pentujen kanssa — saa vapaasti liikkua, ei tarvitse olla enää omalla matolla."
+      <br><br>
+      "Tarjoillaan nyt smoothiet! Ne sisältävät mansikkaa, banaania, appelsiinimehua sekä mustikka-vadelmamehua. Toivottavasti kukaan ei ole allerginen!"
+    </div>
+  </section>
+
+  <!-- LOPUKSI -->
+  <section id="lopuksi">
+    <h2>🏁 Tunnin lopuksi</h2>
+
+    <h3>Tunnin päätyttyä</h3>
+    <ul class="checklist">
+      <li>"Nyt olisi tunnin ikävin vaihe — täytyisi sanoa heipat pennuille" 🐾</li>
+      <li>Kiitetään asiakkaita</li>
+      <li>Mainitaan some-tägäys <strong>@lavly.fi</strong> ja Google Maps -arvostelu QR-koodilla</li>
+      <li>Kerätään smoothie-roskat</li>
+      <li>Desinfioidaan matot</li>
+      <li>Kysy kasvattajalta: sujuiko kaikki? Onko huomioita tai kehitettävää?</li>
+      <li><strong>Anna pentujen nukkua lepoaika 30 min</strong> tuntien välissä</li>
+    </ul>
+
+    <h3>Loppusiivous</h3>
+    <ul class="checklist">
+      <li>Auta kasvattajaa siirtämään pennut autoon — kiitä ja kerro, että maksetaan korvaus pikimmiten</li>
+      <li>Pese matot ja rullaa ne kassiin</li>
+      <li>Irrota aitojen teipit varovasti (lattian maali voi lähteä mukana!)</li>
+      <li>Imuroi ja moppaa lattiat (myös yleiset tilat tarvittaessa)</li>
+      <li>Vie roskat: sali, vessat, pukkarit jne.</li>
+      <li>Ota kaikki tavarat mukaan — tarkista valot ja lukitse ovi</li>
+      <li>Jos jotain on loppu (paperi, pesuaine, teippi): osta seuraavalla kerralla tai <strong>ilmoita chattiin</strong></li>
+    </ul>
+  </section>
+
+  <!-- PENNUT -->
+  <section id="pennut">
+    <h2>🐕 Pennut tunnilla</h2>
+
+    <h3>Pentujen nostelu</h3>
+    <p>Pentuja tulisi nostella erityisen huolellisesti ja varovaisesti. Se viestii asiakkaille ohjaajien välittävän pennuista.</p>
+    <ul class="checklist">
+      <li>Kasvattajan luvalla pentuja voi nostella ympäri salia — näin jokainen asiakas saa olla tekemisissä pentujen kanssa</li>
+      <li>Jos pennut nukkuvat, anna nukkumarauha ensin — sen jälkeen voi nostella kasvattajan luvalla</li>
+      <li>Älä nosta liikaa — kuuntele pentujen omaa tahtoa. Tilannetajua tarvitaan!</li>
+      <li>Pentujooga järjestetään sosialisoitumisen takia — mennään pentujen ehdoilla</li>
+    </ul>
+
+    <h3>Lapsia tunnilla</h3>
+    <div class="warn-box">
+      <strong>Ikäraja on 14 vuotta.</strong> Silloin tällöin lapsia kuitenkin osallistuu tunnille. Toimi näin:
+    </div>
+    <ul class="checklist">
+      <li>Kyykisty aikuisen huoltajan luo huomaamattomasti ennen tunnin alkua</li>
+      <li>Kerro ikärajasta ja ohjeista: huoltajan tulee valvoa lasta, ettei tee äkkinäisiä liikkeitä pentujen ympärillä</li>
+      <li>"Siivoava" ohjaaja pysyy lapsen lähettyvillä tunnin aikana</li>
+      <li>Ohjaajina olette auktoriteetti — uskaltakaa puuttua tilanteisiin!</li>
+    </ul>
+
+    <h3>Pentuihin liittyviä sääntöjä</h3>
+    <ul class="checklist">
+      <li>Pennut osallistuvat tunnille aikaisintaan <strong>5 viikon iässä</strong></li>
+      <li>Maksimissaan kaksi joogatuntia päivässä — välissä 30 min tauko</li>
+      <li>Pennut eivät osallistu peräkkäisinä päivinä tai yli kaksi kertaa viikossa</li>
+      <li>Kasvattaja päättää, tuleeko emä mukaan tunnille</li>
+    </ul>
+  </section>
+
+  <!-- UKK -->
+  <section id="ukk">
+    <h2>❓ Usein kysyttyä</h2>
+
+    <h3>Mistä pennut tulevat?</h3>
+    <p>Pennut tulevat tunneillemme vierailemaan lähialueen kasvattajilta, joiden kanssa teemme yhteistyötä.</p>
+
+    <h3>Mistä etsitte kasvattajat?</h3>
+    <p>Pääosin virallisista kanavista kuten <strong>Hankikoira</strong> sekä rotujärjestöt.</p>
+
+    <h3>Millä kriteereillä valitsette kasvattajat?</h3>
+    <p>Kasvattaja on allekirjoittanut kasvattajasitoumuksen ja rekisteröi pennut. Tärkein varmistus: <strong>vierailu kennelissä</strong> ennen yhteistyön alkua (paikan päällä tai videoyhteydellä).</p>
+
+    <h3>Mitä rotuja otetaan tunneille?</h3>
+    <p>Kaikkia, jotka ovat luonteiltaan tarpeeksi sosiaalisia. Meille on tärkeää, että pennut nauttivat tunneillaan. Ei liian pieniä pentuja kuten esim. chihuahuat.</p>
+
+    <h3>Miksi pentujoogaa järjestetään?</h3>
+    <p>Pentujen on tärkeää saada erilaisia sosialisoitumiskokemuksia jo nuoressa iässä, jotta heistä ei tule arkoja. Kasvattaja pääsee myös näkemään pentujen luonne-eroja uudessa tilanteessa — tämä voi helpottaa uusien perheiden valintaa.</p>
+  </section>
+
+  <!-- LASKUTUS -->
+  <section id="laskutus">
+    <h2>💸 Laskutus & palkkiot</h2>
+
+    <h3>Kevytyrittäjyys</h3>
+    <p>Kevytyrittäjä-tilin luominen on nopeaa ja helppoa. Osataan ohjeistaa parhaiten <strong>OP Kevytyrittäjä</strong>- sekä <strong>ukko.fi</strong>-palveluiden käytöstä.</p>
+    <div class="info-box">
+      OP:lla on y-tunnuksellinen ja tunnukseton vaihtoehto — tähän toimintaan riittää hyvin <strong>tunnukseton</strong>. Palveluntarjoaja toimii laskutusalustana, jonka kautta laskutat työkorvauksesi.
+    </div>
+
+    <h3>Palkkiotaulukko</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Tilanne</th>
+          <th>Korvaus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kotikaupunki — yksi kerta (2 pentujoogatuntia + n. 4 h töitä)</td>
+          <td><strong>100 € / kerta</strong></td>
+        </tr>
+        <tr>
+          <td>1 pentujoogatunti</td>
+          <td><strong>50 €</strong></td>
+        </tr>
+        <tr>
+          <td>Pop-up tunti</td>
+          <td><strong>22 € / tunti</strong></td>
+        </tr>
+        <tr>
+          <td>Itse kokonaan järjestetty pop-up</td>
+          <td><strong>+100 € / kerta</strong> (lisätään työkorvaukseen)</td>
+        </tr>
+        <tr>
+          <td>Kilometrikorvaus</td>
+          <td><strong>0,20 € / km</strong> (jos ei muuta sovittu)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <strong>Pop-up tuntien laskenta:</strong> tilavaraus (yleensä 4 h) + ajomatka tilasta tilaan Mapsin mukaan, saa pyöristää 30 min ylöspäin puoleen tai tasatuntiin.
+    </div>
+
+    <h3>Laskun tekeminen</h3>
+    <ul class="checklist">
+      <li>Valitse "uusi lasku" ja valitse eräpäivä (vähintään 7 vrk)</li>
+      <li>Lisää jokaiselle laskuriville työkorvaus eriteltynä päivittäin. Suorite = päivämäärä. Sovittu palkkio on <strong>alviton → lisää ALV 25,5 %</strong></li>
+      <li>Laskurivin kuvaus: "(Kaupunki) (pvm) pentujooga työkorvaus"</li>
+      <li>Kilometrikorvaukset omalle riville — valitse "Määritä rivin tyyppi" → työajo/kilometrit. Täppää ennakkovero pois (kilometrikorvaus on verotonta!)</li>
+      <li>Junaliput lisätään samoin kuin kilometrikorvaukset (oma rivi, verovapaa)</li>
+      <li>Lähetä lasku! 💕</li>
+    </ul>
+
+    <h3>Laskutustiedot (Lavly Oy)</h3>
+    <div class="billing-box">
+      <div class="row"><span class="label">Nimi:</span> Lavly Oy</div>
+      <div class="row"><span class="label">Y-tunnus:</span> 3576081-9</div>
+      <div class="row"><span class="label">Osoite:</span> Salhojankatu 25D, 33500 Tampere</div>
+      <div class="row"><span class="label">Verkkolaskuosoite:</span> 0037357608191220</div>
+      <div class="row"><span class="label">Verkkolaskuvälittäjä:</span> 003723327487 (Apix Messaging Oy)</div>
+      <div class="row"><span class="label">Sähköposti:</span> lavlytampere@gmail.com</div>
+      <div class="row"><span class="label">Maksuehto (työk.):</span> min. 7 pv</div>
+      <div class="row"><span class="label">Maksuehto (muut):</span> min. 14 pv</div>
+    </div>
+
+    <h3>Kuitit</h3>
+    <p>Laita <strong>KAIKKI kuitit AINA</strong> "lavly kuitit" WhatsApp-ryhmään — mieluiten heti ostoksen jälkeen.</p>
+
+    <div class="two-col">
+      <div class="col-box">
+        <h4>✅ Yrityksen kuitit SAAVAT sisältää:</h4>
+        <ul style="font-size:0.88rem;">
+          <li>Toimintaan liittyvät tarvikkeet</li>
+          <li>Kaikille asiakkaille tarjottavat tuotteet (esim. smoothie-ainekset)</li>
+          <li>Kaikille avoimet alennukset (ei vaadita jäsenyyttä)</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <h4>❌ Yrityksen kuitit EIVÄT SAA sisältää:</h4>
+        <ul style="font-size:0.88rem;">
+          <li>Omat henkilökohtaiset ostokset</li>
+          <li>K-plussa tai S-kortti -edut</li>
+          <li>Opiskelija-alennukset</li>
+          <li>Muut henkilökohtaiset edut</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Mitä ostetaan ja mistä?</h3>
+    <div class="store-grid">
+      <div class="store-card">
+        <h4>K-supermarket</h4>
+        <p>Smoothie-ainekset ja muut pienet tarvittavat. Huom! Jos K-menu mansikat loppu, ei osteta muita — liian kalliita!</p>
+      </div>
+      <div class="store-card">
+        <h4>Kespro / Metro</h4>
+        <p>Kupit, kannet, pillit. Paperi löytyy myös.</p>
+      </div>
+      <div class="store-card">
+        <h4>Puuilo</h4>
+        <p>Pissa-alustat, pentuaita</p>
+      </div>
+      <div class="store-card">
+        <h4>Tokmanni</h4>
+        <p>Paperia, siivoustarvikkeet</p>
+      </div>
+    </div>
+
+    <h3>Laskutussopparit (KSM-asiakasnumerot)</h3>
+    <div class="receipt-grid">
+      <div class="receipt-item">
+        <div class="city">Tampere — Nekala</div>
+        <div class="code">KSM 8004</div>
+      </div>
+      <div class="receipt-item">
+        <div class="city">Jyväskylä — Kotikenttä</div>
+        <div class="code">KSM 345</div>
+      </div>
+      <div class="receipt-item">
+        <div class="city">Oulu — Joutsensilta</div>
+        <div class="code">KSM 907</div>
+      </div>
+      <div class="receipt-item">
+        <div class="city">Seinäjoki — Puskantie</div>
+        <div class="code">KSM 1440</div>
+      </div>
+      <div class="receipt-item">
+        <div class="city">Lahti — Hyppyri</div>
+        <div class="code">KSM 9051</div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:1rem;">
+      <strong>Tutustu myös:</strong> YEL-vakuutus ja OP Kevytyrittäjä-palvelu!
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>🐾 Lavly — Pentujooga | Tervetuloa mukaan matkalle! 💕</p>
+  <p style="margin-top:0.4rem; color:#c99; font-size:0.8rem;">Perehdytysopas 2025</p>
+</footer>
+
+</body>
+</html>
