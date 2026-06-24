@@ -6,10 +6,24 @@
   <title>Lavly – Perehdytysopas</title>
   <style>
     :root {
-      --pink: #C4C4F0;
-      --pink-light: #eeeeff;
-      --pink-dark: #9494d0;
-      --pink-deep: #5a5aaa;
+      /* Lila */
+      --lila: #C4C4F0;
+      --lila-light: #eeeeff;
+      --lila-dark: #9090cc;
+      --lila-deep: #5a5aaa;
+
+      /* Pinkki */
+      --rose: #f4a7b9;
+      --rose-light: #fde8ef;
+      --rose-dark: #d6789a;
+      --rose-deep: #b5536e;
+
+      /* Aliakset — käytetään CSS:ssä */
+      --pink: var(--lila);
+      --pink-light: var(--lila-light);
+      --pink-dark: var(--lila-dark);
+      --pink-deep: var(--lila-deep);
+
       --cream: #f8f8fd;
       --text: #1e1e3a;
       --text-soft: #5a5a8a;
@@ -120,7 +134,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: #1DB954;
+      background: var(--rose-deep);
       color: #fff;
       text-decoration: none;
       padding: 0.5rem 1rem;
@@ -193,7 +207,7 @@
     }
 
     .nav-links a:hover {
-      background: var(--pink-light);
+      background: var(--rose-light);
       color: var(--pink-deep);
     }
 
@@ -288,8 +302,8 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(90, 90, 160, 0.50) 0%,
-        rgba(40, 40, 110, 0.72) 100%
+        rgba(196, 196, 240, 0.45) 0%,
+        rgba(181, 83, 110, 0.72) 100%
       );
       z-index: 1;
     }
@@ -376,7 +390,7 @@
     section h3 {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--pink-dark);
+      color: var(--rose-dark);
       margin: 1.3rem 0 0.5rem;
     }
 
@@ -430,7 +444,7 @@
 
     .checklist li::before {
       content: '✓';
-      background: var(--pink);
+      background: var(--rose);
       color: var(--white);
       border-radius: 50%;
       width: 20px;
@@ -446,8 +460,8 @@
 
     /* INFO BOX */
     .info-box {
-      background: var(--pink-light);
-      border-left: 4px solid var(--pink-dark);
+      background: var(--rose-light);
+      border-left: 4px solid var(--rose-dark);
       border-radius: 0 12px 12px 0;
       padding: 1rem 1.2rem;
       margin: 1rem 0;
@@ -468,7 +482,7 @@
 
     /* SPEECH BOX */
     .speech-box {
-      background: var(--pink-light);
+      background: var(--rose-light);
       border-radius: 14px;
       padding: 1.2rem 1.5rem;
       margin: 0.8rem 0;
@@ -525,7 +539,7 @@
     }
 
     th {
-      background: var(--pink-deep);
+      background: var(--rose-deep);
       color: var(--white);
       padding: 0.75rem 1rem;
       text-align: left;
@@ -541,7 +555,7 @@
     }
 
     tr:last-child td { border-bottom: none; }
-    tr:nth-child(even) td { background: var(--pink-light); }
+    tr:nth-child(even) td { background: var(--lila-light); }
 
     /* STORE TABLE */
     .store-grid {
@@ -573,7 +587,7 @@
 
     /* BILLING INFO */
     .billing-box {
-      background: var(--pink-light);
+      background: var(--rose-light);
       border-radius: 14px;
       padding: 1.3rem 1.5rem;
       margin: 0.8rem 0;
@@ -638,7 +652,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: var(--pink-dark);
+      background: var(--rose-dark);
     }
 
     .timeline-item .time {
@@ -660,7 +674,7 @@
     .ingredient-card {
       border-radius: 14px;
       overflow: hidden;
-      border: 2px solid var(--pink-light);
+      border: 2px solid var(--rose-light);
       background: var(--cream);
       display: flex;
       flex-direction: column;
@@ -671,7 +685,7 @@
       aspect-ratio: 1 / 1;
       object-fit: contain;
       object-position: center;
-      background: var(--pink-light);
+      background: var(--rose-light);
       padding: 0.5rem;
     }
     .ingredient-img[src=""] , .ingredient-img:not([src]) {
@@ -694,7 +708,7 @@
       margin-top: 0.25rem;
       font-size: 1rem;
       font-weight: 900;
-      color: var(--pink-deep);
+      color: var(--rose-deep);
     }
 
     /* BILLING BOX MOBILE FIX */
@@ -733,7 +747,7 @@
     /* BADGE */
     .badge {
       display: inline-block;
-      background: var(--pink-deep);
+      background: var(--rose-deep);
       color: var(--white);
       font-size: 0.72rem;
       font-weight: 700;
