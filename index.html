@@ -31,65 +31,203 @@
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
       background: var(--white);
       border-bottom: 2px solid var(--pink-light);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      overflow-x: auto;
-      white-space: nowrap;
       box-shadow: 0 2px 12px rgba(180,80,120,0.08);
     }
 
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      height: 56px;
+    }
+
     nav .logo {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: var(--pink-deep);
       letter-spacing: -0.5px;
-      padding: 1rem 0;
       flex-shrink: 0;
     }
 
-    nav a {
+    /* Desktop links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    .nav-links a {
       text-decoration: none;
       color: var(--text-soft);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      padding: 0.35rem 0.75rem;
+      padding: 0.35rem 0.65rem;
       border-radius: 20px;
       transition: background 0.2s, color 0.2s;
       flex-shrink: 0;
     }
 
-    nav a:hover {
+    .nav-links a:hover {
       background: var(--pink-light);
       color: var(--pink-deep);
     }
 
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, var(--pink-deep) 0%, var(--pink) 100%);
-      color: var(--white);
-      text-align: center;
-      padding: 5rem 2rem 4rem;
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      border: none;
+      background: none;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .hamburger:hover { background: var(--pink-light); }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--pink-deep);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none;
+      flex-direction: column;
+      padding: 0.75rem 1.5rem 1.25rem;
+      border-top: 1px solid var(--pink-light);
+      gap: 0.2rem;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      text-decoration: none;
+      color: var(--text-soft);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.7rem 0.75rem;
+      border-radius: 12px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-drawer a:hover, .nav-drawer a:active {
+      background: var(--pink-light);
+      color: var(--pink-deep);
     }
 
-    .hero .paw { font-size: 3rem; margin-bottom: 1rem; }
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 420px;
+      max-height: 900px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+    }
+
+    /* Slideshow */
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .hero-slide.active { opacity: 1; }
+
+    /* Overlay */
+    .hero-slides::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(181, 83, 110, 0.55) 0%,
+        rgba(100, 30, 55, 0.70) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem 1.5rem;
+      max-width: 640px;
+    }
+
+    .hero-logo {
+      width: min(220px, 55vw);
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.25));
+    }
 
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
       font-weight: 900;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
       margin-bottom: 0.75rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     .hero p {
-      font-size: 1.1rem;
-      opacity: 0.92;
-      max-width: 560px;
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      opacity: 0.93;
+      max-width: 480px;
       margin: 0 auto;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Slide dots */
+    .hero-dots {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+    }
+    .hero-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .hero-dots span.active {
+      background: #fff;
+      transform: scale(1.3);
     }
 
     /* MAIN */
@@ -393,6 +531,89 @@
       font-size: 0.85rem;
     }
 
+    /* INGREDIENT CARDS */
+    .ingredient-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .ingredient-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .ingredient-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid var(--pink-light);
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ingredient-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      object-position: center;
+      background: var(--pink-light);
+      padding: 0.5rem;
+    }
+    .ingredient-img[src=""] , .ingredient-img:not([src]) {
+      display: none;
+    }
+
+    .ingredient-body {
+      padding: 0.6rem 0.75rem 0.75rem;
+      background: var(--white);
+    }
+
+    .ingredient-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .ingredient-qty {
+      margin-top: 0.25rem;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--pink-deep);
+    }
+
+    /* BILLING BOX MOBILE FIX */
+    .billing-box .row {
+      flex-wrap: wrap;
+    }
+    .billing-box .label {
+      min-width: 0;
+      width: 100%;
+    }
+    @media (min-width: 500px) {
+      .billing-box .label { width: 190px; }
+    }
+
+    /* TABLE MOBILE */
+    @media (max-width: 560px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      thead tr { display: none; }
+      td {
+        padding: 0.4rem 0.75rem;
+        border-bottom: none;
+      }
+      td:first-child {
+        padding-top: 0.75rem;
+        font-size: 0.88rem;
+        color: var(--text-soft);
+      }
+      td:last-child {
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--pink-light);
+        font-size: 1rem;
+      }
+      tr:last-child td:last-child { border-bottom: none; }
+    }
+
     /* BADGE */
     .badge {
       display: inline-block;
@@ -412,24 +633,58 @@
 <body>
 
 <nav>
-  <span class="logo">🐾 Lavly</span>
-  <a href="#tervetuloa">Tervetuloa</a>
-  <a href="#arvot">Arvot</a>
-  <a href="#brandi">Brändi</a>
-  <a href="#valmistelu">Valmistelu</a>
-  <a href="#smoothiet">Smoothiet</a>
-  <a href="#asiakkaat">Asiakkaat</a>
-  <a href="#tunti">Tunnin kulku</a>
-  <a href="#lopuksi">Lopuksi</a>
-  <a href="#pennut">Pennut</a>
-  <a href="#ukk">UKK</a>
-  <a href="#laskutus">Laskutus</a>
+  <div class="nav-inner">
+    <span class="logo">🐾 Lavly</span>
+    <div class="nav-links">
+      <a href="#tervetuloa">Tervetuloa</a>
+      <a href="#arvot">Arvot</a>
+      <a href="#brandi">Brändi</a>
+      <a href="#valmistelu">Valmistelu</a>
+      <a href="#smoothiet">Smoothiet</a>
+      <a href="#asiakkaat">Asiakkaat</a>
+      <a href="#tunti">Tunnin kulku</a>
+      <a href="#lopuksi">Lopuksi</a>
+      <a href="#pennut">Pennut</a>
+      <a href="#ukk">UKK</a>
+      <a href="#laskutus">Laskutus</a>
+    </div>
+    <button class="hamburger" aria-label="Avaa valikko" onclick="toggleMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="#tervetuloa" onclick="closeMenu()">💌 Tervetuloa</a>
+    <a href="#arvot" onclick="closeMenu()">💖 Arvot</a>
+    <a href="#brandi" onclick="closeMenu()">✨ Brändi</a>
+    <a href="#valmistelu" onclick="closeMenu()">🏠 Valmistelu</a>
+    <a href="#smoothiet" onclick="closeMenu()">🥤 Smoothiet</a>
+    <a href="#asiakkaat" onclick="closeMenu()">👋 Asiakkaat</a>
+    <a href="#tunti" onclick="closeMenu()">🧘 Tunnin kulku</a>
+    <a href="#lopuksi" onclick="closeMenu()">🏁 Lopuksi</a>
+    <a href="#pennut" onclick="closeMenu()">🐕 Pennut</a>
+    <a href="#ukk" onclick="closeMenu()">❓ UKK</a>
+    <a href="#laskutus" onclick="closeMenu()">💸 Laskutus</a>
+  </div>
 </nav>
 
 <div class="hero">
-  <div class="paw">🐶</div>
-  <h1>Tervetuloa Lavlyn tiimiin!</h1>
-  <p>Tämä opas auttaa sinut alkuun. Lue rauhassa — kaikkea ei tarvitse osata heti ulkoa!</p>
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('pentu1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('pentu3.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('pentu4.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('pentu2.jpg')"></div>
+  </div>
+  <div class="hero-content">
+    <img src="logo_valkoinen.png" alt="Lavly" class="hero-logo" />
+    <h1>Tervetuloa tiimiin! 🐾</h1>
+    <p>Tämä opas auttaa sinut alkuun. Lue rauhassa — kaikkea ei tarvitse osata heti ulkoa!</p>
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <span class="active" onclick="goToSlide(0)"></span>
+    <span onclick="goToSlide(1)"></span>
+    <span onclick="goToSlide(2)"></span>
+    <span onclick="goToSlide(3)"></span>
+  </div>
 </div>
 
 <main>
@@ -511,20 +766,53 @@
   <section id="smoothiet">
     <h2>🥤 Smoothiet</h2>
 
-    <div class="two-col">
+    <h3 style="margin-bottom:0.8rem;">Ainekset (30 asiakasta)</h3>
+    <div class="ingredient-grid">
+      <div class="ingredient-card" style="--ing-color:#f5d94e; --ing-text:#5a4800;">
+        <img src="smoothie_banaani.jpg" alt="Pirkka banaani" class="ingredient-img" />
+        <div class="ingredient-body">
+          <div class="ingredient-name">Pirkka banaani</div>
+          <div class="ingredient-qty">8 kpl</div>
+        </div>
+      </div>
+      <div class="ingredient-card" style="--ing-color:#e8534a; --ing-text:#fff;">
+        <img src="smoothie_mansikka.jpg" alt="K-menu mansikka" class="ingredient-img" />
+        <div class="ingredient-body">
+          <div class="ingredient-name">K-menu mansikka (pakaste)</div>
+          <div class="ingredient-qty">8 pussia</div>
+        </div>
+      </div>
+      <div class="ingredient-card" style="--ing-color:#f5a623; --ing-text:#fff;">
+        <img src="smoothie_appelsiini.jpg" alt="K-menu appelsiinimehu" class="ingredient-img" />
+        <div class="ingredient-body">
+          <div class="ingredient-name">K-menu appelsiinimehu</div>
+          <div class="ingredient-qty">3 kpl (1 L)</div>
+        </div>
+      </div>
+      <div class="ingredient-card" style="--ing-color:#c0437e; --ing-text:#fff;">
+        <img src="smoothie_juissi.jpg" alt="Juissi mustikka-vadelma" class="ingredient-img" />
+        <div class="ingredient-body">
+          <div class="ingredient-name">Juissi mustikka-vadelma</div>
+          <div class="ingredient-qty">4 kpl (1 L)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:1.2rem;">
       <div class="col-box">
-        <h4>Ostoslista (30 asiakasta)</h4>
-        <ul>
-          <li>Pirkka banaani — 8 kpl</li>
-          <li>K-menu mansikka pussi — 8 kpl</li>
-          <li>K-menu appelsiinimehu — 3 kpl</li>
-          <li>Juissi mustikka-vadelma — 4 kpl</li>
+        <h4>Ohje — 1 kannullinen</h4>
+        <p style="font-size:0.9rem;">Lisää blenderiin:</p>
+        <ul style="font-size:0.9rem;">
+          <li><strong>1,5 banaania</strong></li>
+          <li><strong>1,5 pussia mansikkaa</strong></li>
+          <li><strong>appelsiinimehua ⅓</strong> kannusta</li>
+          <li><strong>juissia ⅔</strong> kannusta</li>
         </ul>
       </div>
       <div class="col-box">
-        <h4>Ohje</h4>
-        <p style="font-size:0.9rem;">Lisää blenderiin <strong>1,5 banaania</strong>, <strong>1,5 pussia mansikkaa</strong>, <strong>appelsiinimehua ⅓</strong> kannusta ja <strong>juissia ⅔</strong> kannusta.</p>
-        <p style="font-size:0.9rem;">Yhdestä kannusta tulee n. 6–7 annosta → tee noin <strong>5 kannullista</strong>. Tee muutama ylimääräinen! Tarjoa myös kasvattajalle.</p>
+        <h4>Tee 5 kannullista</h4>
+        <p style="font-size:0.9rem;">Yhdestä kannusta tulee n. <strong>6–7 annosta</strong>.</p>
+        <p style="font-size:0.9rem;">Tee aina muutama ylimääräinen! Tarjoa myös kasvattajalle. 💕</p>
         <p style="font-size:0.9rem;">Kaada valmiiksi kuppeihin ja laita jääkaappiin tuntien ajaksi.</p>
       </div>
     </div>
@@ -742,10 +1030,6 @@
           <td><strong>22 € / tunti</strong></td>
         </tr>
         <tr>
-          <td>Itse kokonaan järjestetty pop-up</td>
-          <td><strong>+100 € / kerta</strong> (lisätään työkorvaukseen)</td>
-        </tr>
-        <tr>
           <td>Kilometrikorvaus</td>
           <td><strong>0,20 € / km</strong> (jos ei muuta sovittu)</td>
         </tr>
@@ -857,5 +1141,38 @@
   <p style="margin-top:0.4rem; color:#c99; font-size:0.8rem;">Perehdytysopas 2025</p>
 </footer>
 
+<script>
+  // Hamburger menu
+  function toggleMenu(btn) {
+    btn.classList.toggle('open');
+    document.getElementById('navDrawer').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.querySelector('.hamburger').classList.remove('open');
+    document.getElementById('navDrawer').classList.remove('open');
+  }
+  // Close drawer when clicking outside
+  document.addEventListener('click', function(e) {
+    const nav = document.querySelector('nav');
+    if (!nav.contains(e.target)) closeMenu();
+  });
+
+  // Hero slideshow
+  let current = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('#heroDots span');
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  setInterval(() => {
+    goToSlide((current + 1) % slides.length);
+  }, 4500);
+</script>
 </body>
 </html>
