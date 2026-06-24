@@ -6,15 +6,15 @@
   <title>Lavly – Perehdytysopas</title>
   <style>
     :root {
-      --pink: #f4a7b9;
-      --pink-light: #fde8ef;
-      --pink-dark: #d6789a;
-      --pink-deep: #b5536e;
-      --cream: #fff9fb;
-      --text: #3a2230;
-      --text-soft: #6b4459;
+      --pink: #C4C4F0;
+      --pink-light: #eeeeff;
+      --pink-dark: #9494d0;
+      --pink-deep: #5a5aaa;
+      --cream: #f8f8fd;
+      --text: #1e1e3a;
+      --text-soft: #5a5a8a;
       --white: #ffffff;
-      --shadow: 0 4px 24px rgba(180, 80, 120, 0.10);
+      --shadow: 0 4px 24px rgba(90, 90, 170, 0.10);
       --radius: 18px;
     }
 
@@ -27,6 +27,122 @@
       line-height: 1.7;
     }
 
+    /* FLOATING PAWS background decoration */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        url('il_tassu.png'),
+        url('il_tassu2.png'),
+        url('il_tassu.png'),
+        url('il_tassu2.png'),
+        url('il_tassu.png');
+      background-size: 60px, 44px, 50px, 40px, 55px;
+      background-position:
+        5% 12%, 92% 28%, 8% 58%, 95% 72%, 3% 88%;
+      background-repeat: no-repeat;
+      opacity: 0.07;
+    }
+
+    main, nav, .hero { position: relative; z-index: 1; }
+
+    /* SECTION DIVIDER */
+    .paw-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin: 0.2rem 0 0.2rem;
+      opacity: 0.35;
+    }
+    .paw-divider img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+    .paw-divider::before,
+    .paw-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--pink);
+      max-width: 120px;
+    }
+
+    /* FLOATING ILLUSTRATION */
+    .il-float {
+      display: block;
+      margin: 0 auto;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* DOGS BANNER between sections */
+    .dogs-banner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+      margin: -0.5rem 0 -0.8rem;
+      overflow: hidden;
+    }
+    .dogs-banner img {
+      height: 130px;
+      object-fit: contain;
+    }
+    @media (max-width: 500px) {
+      .dogs-banner img { height: 90px; }
+    }
+
+    /* YOGA DOGS row */
+    .yoga-dogs {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.2rem 0 0.5rem;
+      overflow: hidden;
+    }
+    .yoga-dogs img {
+      height: 110px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    @media (max-width: 500px) {
+      .yoga-dogs img { height: 75px; }
+    }
+
+    /* SPOTIFY BUTTON */
+    .spotify-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1DB954;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-top: 0.3rem;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .spotify-btn:hover { opacity: 0.88; transform: scale(1.02); }
+
+    /* HEART accents */
+    .heart-accent {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin: 0 4px;
+      opacity: 0.8;
+    }
+
     /* NAV */
     nav {
       position: sticky;
@@ -34,7 +150,7 @@
       z-index: 200;
       background: var(--white);
       border-bottom: 2px solid var(--pink-light);
-      box-shadow: 0 2px 12px rgba(180,80,120,0.08);
+      box-shadow: 0 2px 12px rgba(90,90,170,0.08);
     }
 
     .nav-inner {
@@ -172,8 +288,8 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(181, 83, 110, 0.55) 0%,
-        rgba(100, 30, 55, 0.70) 100%
+        rgba(90, 90, 160, 0.50) 0%,
+        rgba(40, 40, 110, 0.72) 100%
       );
       z-index: 1;
     }
@@ -691,7 +807,7 @@
 
   <!-- TERVETULOA -->
   <section id="tervetuloa">
-    <h2>💌 Tervetuloa</h2>
+    <h2>💌 Tervetuloa <img src="il_sydan_pinkki.png" class="heart-accent" alt=""></h2>
     <p>Lavlyn pentujooga sai alkunsa kolmen kaveruksen intohimoprojektista. Haluttiin yhdistää lempeä liikunta, lämmin ja iloinen fiilis sekä tietenkin ihanat koirat. Tavoitteena on luoda asiakkaille hetki, joka rentouttaa ja nostaa mielialaa arjen kiireen keskellä.</p>
     <p>Kaikki lähti pienestä ideasta, ja nyt olemme kasvaneet niin paljon, että päästiin etsimään uusia huipputyyppejä mukaan! Toiminta alkoi syksyllä 2024 Tampereella ja meillä on nyt vakiintuneet toimipisteet <strong>Tampereella, Jyväskylässä, Oulussa, Seinäjoella ja Lahdessa</strong>.</p>
     <div class="info-box">
@@ -699,9 +815,11 @@
     </div>
   </section>
 
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
+
   <!-- ARVOT -->
   <section id="arvot">
-    <h2>💖 Lavlyn arvot</h2>
+    <h2>💖 Lavlyn arvot <img src="il_sydan_vaalea.png" class="heart-accent" alt=""></h2>
     <div class="value-grid">
       <div class="value-card">
         <div class="icon">🤝</div>
@@ -723,7 +841,12 @@
     <div class="info-box" style="margin-top:1.2rem;">
       Vaikeissa tai uusissa tilanteissa muista nämä arvot ja tee valinnat niiden pohjalta.
     </div>
+    <div class="dogs-banner" style="margin-top:1.2rem;">
+      <img src="il_koirat_kaksi.png" alt="Lavly koirat" />
+    </div>
   </section>
+
+  <div class="paw-divider"><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""></div>
 
   <!-- BRÄNDI -->
   <section id="brandi">
@@ -739,6 +862,8 @@
       <li>Joogamatot siisteinä — ohjaajien tehtävä huolehtia uusista matoista (Rusta). Kuitista kuva 💕 ja maksetaan heti takaisin!</li>
     </ul>
   </section>
+
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
 
   <!-- VALMISTELU -->
   <section id="valmistelu">
@@ -761,6 +886,8 @@
       <li>Yhdistä kaiutin valmiiksi musiikkia varten</li>
     </ul>
   </section>
+
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
 
   <!-- SMOOTHIET -->
   <section id="smoothiet">
@@ -829,6 +956,8 @@
     </div>
   </section>
 
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
+
   <!-- ASIAKKAAT -->
   <section id="asiakkaat">
     <h2>👋 Kun asiakkaat ja pennut saapuvat</h2>
@@ -858,15 +987,19 @@
     <div class="timeline">
       <div class="timeline-item">
         <div class="time">Ennen joogaa</div>
-        Spotify: <strong>Lavlyn "hyvän fiiliksen" -lista</strong>
+        <a href="https://open.spotify.com/playlist/0im4ezxzKclDYrENkb7cfR?si=pvbLf7k8Q4Oqv2Awu9jP1Q&pi=00F6QrExRAejD" target="_blank" class="spotify-btn">
+          Lavlyn hyvän fiiliksen -lista
+        </a>
       </div>
       <div class="timeline-item">
         <div class="time">Joogan alkaessa</div>
-        Vaihda: <strong>yoga &amp; meditation -lista</strong>
+        <a href="https://open.spotify.com/playlist/37i9dQZF1DX9uKNf5jGX6m?si=Xm65Igg9Reu7xV9tNI-2tw&pi=Q3ms0ZZNRbW-h" target="_blank" class="spotify-btn">
+          Yoga &amp; meditation -lista
+        </a>
       </div>
       <div class="timeline-item">
         <div class="time">Vapaa hengailu</div>
-        Takaisin: <strong>Lavlyn hyvän fiiliksen -lista</strong>
+        Takaisin hyvän fiiliksen -listalle 🎶
       </div>
     </div>
     <div class="info-box">
@@ -874,10 +1007,18 @@
     </div>
   </section>
 
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
+
   <!-- TUNTI -->
   <section id="tunti">
     <h2>🧘 Tunnin kulku</h2>
 
+
+    <div class="yoga-dogs">
+      <img src="il_koira_jooga2.png" alt="joogakoira" />
+      <img src="il_koira_juoksee.png" alt="juokseva koira" />
+      <img src="il_koira_jooga1.png" alt="joogakoira" />
+    </div>
     <h3>Alku spiikki — siistijä</h3>
     <div class="speech-box">
       <span class="speaker-tag">Siistijä</span>
@@ -918,6 +1059,8 @@
     </div>
   </section>
 
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
+
   <!-- LOPUKSI -->
   <section id="lopuksi">
     <h2>🏁 Tunnin lopuksi</h2>
@@ -943,7 +1086,10 @@
       <li>Ota kaikki tavarat mukaan — tarkista valot ja lukitse ovi</li>
       <li>Jos jotain on loppu (paperi, pesuaine, teippi): osta seuraavalla kerralla tai <strong>ilmoita chattiin</strong></li>
     </ul>
+    <div style="text-align:center;margin-top:1.2rem;opacity:0.7;"><img src="il_koira_juoksee.png" style="height:90px;object-fit:contain;" alt=""></div>
   </section>
+
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
 
   <!-- PENNUT -->
   <section id="pennut">
@@ -978,6 +1124,8 @@
     </ul>
   </section>
 
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
+
   <!-- UKK -->
   <section id="ukk">
     <h2>❓ Usein kysyttyä</h2>
@@ -997,6 +1145,8 @@
     <h3>Miksi pentujoogaa järjestetään?</h3>
     <p>Pentujen on tärkeää saada erilaisia sosialisoitumiskokemuksia jo nuoressa iässä, jotta heistä ei tule arkoja. Kasvattaja pääsee myös näkemään pentujen luonne-eroja uudessa tilanteessa — tämä voi helpottaa uusien perheiden valintaa.</p>
   </section>
+
+  <div class="paw-divider"><img src="il_tassu.png" alt=""><img src="il_tassu2.png" alt=""><img src="il_tassu.png" alt=""></div>
 
   <!-- LASKUTUS -->
   <section id="laskutus">
@@ -1130,7 +1280,11 @@
     </div>
 
     <div class="info-box" style="margin-top:1rem;">
-      <strong>Tutustu myös:</strong> YEL-vakuutus ja OP Kevytyrittäjä-palvelu!
+      <strong>Tutustu myös:</strong>
+      <div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:0.6rem;">
+        <a href="https://www.op.fi/yritykset/vakuutukset/henkilovakuutukset/yel-vakuutus?cmpid=.yavaku..hark.google.sem.bra_yel-vakuutus_op%20yel.ya_jn_yelvakuutus&s_kwcid=AL!7229!3!574272469903!p!!g!!op%20yel&gad_source=1&gad_campaignid=11754517121&gbraid=0AAAAAC1JY7oii8KAQFS9S4y4EAYebWK_7&gclid=CjwKCAiA4KfLBhB0EiwAUY7GAW1ZKTnu2t0kncIOwPzpx_wEaGmH9t_GLxV9xaG0PdCZ-XGARXGpaxoCVCIQAvD_BwE" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--pink-deep);color:#fff;text-decoration:none;padding:0.5rem 1rem;border-radius:30px;font-size:0.88rem;font-weight:700;transition:opacity 0.2s;">🔗 YEL-vakuutus</a>
+        <a href="https://op-kevytyrittaja.fi" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--pink-deep);color:#fff;text-decoration:none;padding:0.5rem 1rem;border-radius:30px;font-size:0.88rem;font-weight:700;transition:opacity 0.2s;">🔗 OP Kevytyrittäjä</a>
+      </div>
     </div>
   </section>
 
